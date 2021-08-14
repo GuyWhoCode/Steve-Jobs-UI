@@ -6,3 +6,4 @@ A small fun project utilizing 2D graphics with the Pygame Library.
 # Dependencies:
 * Pygame
 * Python 3
+* Pygame-Menu

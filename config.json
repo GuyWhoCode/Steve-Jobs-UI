@@ -1,0 +1,29 @@
+{
+    "button": {
+        "buttonWidth": 70,
+        "buttonHeight": 60,
+        "margin": 5,
+        "fontColor": [255, 255, 255]
+    },
+    "general": {
+        "backgroundColor": [60,60,52],
+        "topMargin": 100,
+        "bottomMargin": 10,
+        "fontSize": 30,
+        "outputSize": 50,
+        "outputColor": [255, 255, 255]
+    },
+    "topBar": {
+        "color": [79,79,81],
+        "highlight": [101, 101, 105]
+    },
+    "sideBar": {
+        "color": [242,164,78],
+        "highlight": [240, 180, 115]
+    },
+    "numBar": {
+        "color": [118,118,120],
+        "highlight": [152, 152, 156]
+    }
+
+}
