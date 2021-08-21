@@ -1,3 +1,6 @@
+from typing import final
+
+
 def Calculator(input):
     if ('AC' in input):
         return ''
@@ -11,7 +14,7 @@ def Calculator(input):
 
             numbers.pop(operatorIndex)
 
-            numbers[operatorIndex - 1] = str(firstNum / secondNum)
+            numbers[operatorIndex - 1] = firstNum / secondNum
         elif ('×' in numbers):
             operatorIndex = numbers.index("×")
             firstNum = float(numbers[operatorIndex - 1])
@@ -19,7 +22,7 @@ def Calculator(input):
 
             numbers.pop(operatorIndex)
 
-            numbers[operatorIndex - 1] = str(firstNum * secondNum)
+            numbers[operatorIndex - 1] = firstNum * secondNum
         elif ('-' in numbers):
             operatorIndex = numbers.index("-")
             firstNum = float(numbers[operatorIndex - 1])
@@ -27,7 +30,7 @@ def Calculator(input):
 
             numbers.pop(operatorIndex)
 
-            numbers[operatorIndex - 1] = str(firstNum - secondNum)
+            numbers[operatorIndex - 1] = firstNum - secondNum
         elif ('+' in numbers):
             operatorIndex = numbers.index("+")
             firstNum = float(numbers[operatorIndex - 1])
@@ -35,6 +38,13 @@ def Calculator(input):
 
             numbers.pop(operatorIndex)
 
-            numbers[operatorIndex - 1] = str(firstNum + secondNum)
+            numbers[operatorIndex - 1] = firstNum + secondNum
     
-    return numbers[0]
+    finalNumber = str("{:.5}".format((numbers[0])))
+    # Taken from https://ask.sagemath.org/question/11051/cutting-unnecessary-zeroes-in-float-numbers/
+
+    if (".0" in finalNumber):
+        if (finalNumber.split(".0")[1] == ""):
+            return finalNumber.split(".0")[0]
+    else:
+        return finalNumber

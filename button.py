@@ -29,10 +29,10 @@ class Button():
     
     def checkPressed(self, mouseX, mouseY):
         if ((mouseX > self.marginLeft and mouseX < self.marginLeft + self.buttonWidth) and (mouseY > self.marginTop and mouseY < self.marginTop + self.buttonHeight)):
+            self.color = config[self.section].get("highlight")
             if (pygame.mouse.get_pressed()[0]):
-                self.color = config[self.section].get("highlight")
                 return self.buttonText
-            # Draw highlight
+            # Draw highlight hover
         else:
             self.color = config[self.section].get("color")
             #Draw normal

@@ -1,5 +1,5 @@
 import pygame
-from pygame.locals import K_0, K_1, K_2, K_3, K_4, K_5, K_6, K_7, K_8, K_9, KEYDOWN
+from pygame.locals import K_0, K_1, K_2, K_3, K_4, K_5, K_6, K_7, K_8, K_9, KEYDOWN, K_PERCENT, K_PERIOD, K_BACKSLASH, K_MINUS, KMOD_SHIFT, K_EQUALS, K_RETURN
 import json
 from button import Button
 from calculator import Calculator
@@ -44,12 +44,25 @@ while running:
                 calcOutput += "6"
             elif (event.key == K_7):
                 calcOutput += "7"
+            elif (event.key == K_8 and KMOD_SHIFT):
+                calcOutput += " × "
+            elif (event.key == K_EQUALS and KMOD_SHIFT):
+                calcOutput += " + "
+            elif (event.key == K_MINUS):
+                calcOutput += " - "
+            elif (event.key == K_BACKSLASH):
+                calcOutput += " ÷ "
+            elif (event.key == K_PERIOD):
+                calcOutput += "."
             elif (event.key == K_8):
                 calcOutput += "8"
             elif (event.key == K_9):
                 calcOutput += "9"
-
-
+            elif (event.key == K_PERCENT):
+                calcOutput = str(float(calcOutput) / 100)
+                pygame.time.delay(100)
+            elif (event.key == K_RETURN):
+                calcOutput = Calculator(calcOutput)
                 
     screen.fill((config['general'].get('backgroundColor'))) 
     
@@ -98,3 +111,6 @@ while running:
     pygame.display.flip()
 
 pygame.quit()
+# Saving calculator algo
+# When save button is pressed, draggable buttons snap centered on mouse when clicked.
+# Save button rewrites existing file.
