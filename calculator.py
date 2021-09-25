@@ -1,6 +1,3 @@
-from typing import final
-
-
 def Calculator(input):
     if ('AC' in input):
         return ''

@@ -13,12 +13,16 @@ margin = config['button'].get('margin')
 topMargin = config['general'].get('topMargin')
 bottomMargin = config['general'].get('bottomMargin')
 
+outputFontSizeOriginal = config['general'].get('outputSize')
+# Referenced when resetting the font size to the original size.
 outputFontSize = config['general'].get('outputSize')
 outputColor = config['general'].get('outputColor')
 screenWidth = (buttonWidth * 4) + (margin * 3)
 screenHeight = topMargin + (buttonHeight * 5) + (margin * 5) + bottomMargin
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('Steve Jobs Calculator UI')
+
+frames = pygame.time.Clock()
 
 calcOutput = ''
 running = True
@@ -61,8 +65,11 @@ while running:
             elif (event.key == K_PERCENT):
                 calcOutput = str(float(calcOutput) / 100)
                 pygame.time.delay(100)
+                # Delay to prevent multiple inputs within a small period of time
             elif (event.key == K_RETURN):
                 calcOutput = Calculator(calcOutput)
+    # Mirrors a similar functionality as the onscreen keys except for awaiting a keyboard input
+                
                 
     screen.fill((config['general'].get('backgroundColor'))) 
     
@@ -71,22 +78,25 @@ while running:
         for row in range(5):
             if (column == 3):
                 color = 'sideBar'
-                # Rightmost column color
+                # Rightmost column color for operations
             elif (row == 0):
                 color = 'topBar'
-                # 1st row color
+                # 1st row color for misc operations
             else:
                 color = 'numBar'
-                # Number button colors
+                # Number button colors to input numbers
 
             if (column == 1 and row == 4):
                 break;
             else:
                 calcButton = Button(screen, leftMargin, (topMargin + (buttonWidth - margin) * row), color, buttonWidth, buttonHeight, column, row)
                 buttonPress = calcButton.checkPressed(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
-                
+                # Creates instance to check for a button hover and press
+
                 if (buttonPress == "AC"):
                     calcOutput = ""
+                    outputFontSize = outputFontSizeOriginal
+                    # Reads directly from the pressed button instead of the Calculation function
                 elif (buttonPress == "+/-"):
                     calcOutput = str(float(calcOutput) * -1)
                     pygame.time.delay(100)
@@ -98,19 +108,20 @@ while running:
                 elif (buttonPress is not None):
                     calcOutput += buttonPress
                     pygame.time.delay(100)      
-    # Button generator
+                    # Delay to prevent multiple inputs within a small period of time
 
-    
+
     outputFont = pygame.font.SysFont('arial', outputFontSize)
     calcRender = outputFont.render(calcOutput, True, outputColor)
     if (screenWidth - outputFont.size(calcOutput)[0] < 0):
         outputFontSize -= 1
     else:
         screen.blit(calcRender, (screenWidth - outputFont.size(calcOutput)[0], topMargin - outputFont.size(calcOutput)[1]))
-    
+    # Automatic font size resizing -- decreases font size by one until the text width fits the screen width
+    # Does not need a while loop since it decreases with each frame -- 1 loop of the outer while loop or game loop
+
     pygame.display.flip()
+    frames.tick(30)
+    # Constant 30 frames per second (fps)
 
 pygame.quit()
-# Saving calculator algo
-# When save button is pressed, draggable buttons snap centered on mouse when clicked.
-# Save button rewrites existing file.
